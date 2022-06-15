@@ -10,9 +10,8 @@ public class BodySystem : MonoBehaviour
     private string Name;
     private float Functionality;
     
-    public string Print(ref List<string> printedNames)
+    public string Print()
     {
-
         string returnable = "";
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
         {

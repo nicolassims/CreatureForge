@@ -32,11 +32,11 @@ public class Part : MonoBehaviour
             $"  Length: {Length}\n" +
             $"  Age: {Width}\n" +
             $"  Density: {Density}\n" +
-            $"  MuscleSystem: {MuscleSystem.Print(ref printedNames)}\n" +
-            $"  NervousSystem: {NervousSystem.Print(ref printedNames)}\n" +
-            $"  InternalSystem: {InternalSystem.Print(ref printedNames)}\n" +
-            $"  ExternalSystem: {ExternalSystem.Print(ref printedNames)}\n" +
-            $"  BoneSystem: {BoneSystem.Print(ref printedNames)}\n";
+            $"  MuscleSystem: {MuscleSystem.Print()}\n" +
+            $"  NervousSystem: {NervousSystem.Print()}\n" +
+            $"  InternalSystem: {InternalSystem.Print()}\n" +
+            $"  ExternalSystem: {ExternalSystem.Print()}\n" +
+            $"  BoneSystem: {BoneSystem.Print()}\n";
 
         foreach (Part part in ConnectedParts) {
             if (!printedNames.Contains(part.Name)) { 
