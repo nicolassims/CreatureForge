@@ -7,15 +7,12 @@ using UnityEngine;
 
 public class CreateAmoeba : MonoBehaviour
 {
-    public GameObject ConsoleObj;
-    private TextMeshProUGUI Console;
+    public TextMeshProUGUI Console;
+    //public GameObject ConsoleObj;
+    //private TextMeshProUGUI Console;
 
     // Start is called before the first frame update
-    async void Start()
-    {
-        Console = ConsoleObj.GetComponent<TextMeshProUGUI>();
-        //Console.text = "";
-
+    async void Start() {
         await PrintMessage("This is a message, for testing purposes.");
 
 
@@ -24,14 +21,12 @@ public class CreateAmoeba : MonoBehaviour
 
     private async Task PrintMessage(string msg)
     {
-        while (Console.text != "")
-        {
+        while (Console.text != "") {
             Console.text = Console.text.Remove(Console.text.Length - 1);
             await Task.Delay(50);
         }
 
-        while (Console.text != msg)
-        {
+        while (Console.text != msg) {
             Console.text += msg[Console.text.Length];
             await Task.Delay(50);
         }
