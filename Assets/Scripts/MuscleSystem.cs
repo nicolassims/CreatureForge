@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MuscleSystem : MonoBehaviour
+public class MuscleSystem : BodySystem
 {
     private float Strength;
     private float Reactivity;

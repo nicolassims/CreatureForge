@@ -11,13 +11,17 @@ public class Creature : MonoBehaviour
     private float Discipline;
     private float Perception;
 
-    public string PrintCreature()
+    public string Print()
     {
-        return $"Name: {Name}\n" +
+        List<string> PrintedNames = new List<string>();
+
+        return 
+            $"Name: {Name}\n" +
             $"DistanceFromFloor: {DistanceFromFloor}\n" +
             $"Age: {Age}\n" +
             $"Discipline: {Discipline}\n" +
-            $"Perception: {Perception}";
+            $"Perception: {Perception}\n" +
+            $"{Core.Print(ref PrintedNames)}";
     }
 
     // Start is called before the first frame update
