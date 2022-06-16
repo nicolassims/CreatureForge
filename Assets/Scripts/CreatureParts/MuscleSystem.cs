@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class MuscleSystem : BodySystem
 {
-    private float Strength;//0 is completely incapable of movement. 1 is Saitama
-    private float Reactivity;//0 is totally unresponsive. 1 is Saitama
-    private float Precision;//0 is literally incapable of hitting anything, ever. 1 is perfectly accurate
+    private float strength;//0 is completely incapable of movement. 1 is Saitama
+    private float reactivity;//0 is totally unresponsive. 1 is Saitama
+    private float precision;//0 is literally incapable of hitting anything, ever. 1 is perfectly accurate
 
-    public MuscleSystem(Part parent) : base(parent)
+    public MuscleSystem() : base()
     {
-        Strength = 0.5f;
-        Reactivity = 0.5f;
-        Precision = 0.5f;
+        strength = 0.5f;
+        reactivity = 0.5f;
+        precision = 0.5f;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override string Print()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return base.Print() +
+            $"    Strength: {strength}\n" +
+            $"    Reactivity: {reactivity}\n" +
+            $"    Precision: {precision}\n";
     }
 }

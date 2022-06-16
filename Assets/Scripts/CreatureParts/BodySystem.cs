@@ -1,38 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 public class BodySystem
 {
     private List<BodySystem> connectedSystems;
-    private Part parent;
     private string name;
     private float functionality;
 
-    public BodySystem(List<BodySystem> connectedSystems, Part parent, string name, float functionality) {
+    public BodySystem(List<BodySystem> connectedSystems, string name, float functionality) {
         this.connectedSystems = connectedSystems;
-        this.parent = parent;
         this.name = name;
         this.functionality = functionality;
     }
 
-    public BodySystem(Part parent) : this(new List<BodySystem>(), parent, $"Unnamed Part", 0.5f) { }
+    public BodySystem() : this(new List<BodySystem>(), $"Unnamed Part", 0.5f) { }
     
-    public string Print()
+    public virtual string Print()
     {
         string returnable = "";
-        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
+        string connectedSystemsString = "";
+
+        foreach(BodySystem system in connectedSystems)
         {
-            string name = descriptor.Name;
-            object value = descriptor.GetValue(this);
-            returnable += $"    {name}: {value}";
+            if (connectedSystemsString != "")
+            {
+                connectedSystemsString += ", ";
+            }
+            connectedSystemsString += system.name;
         }
 
-        return returnable;
+        returnable +=
+            $"    Connected Systems: {connectedSystemsString}\n" +
+            $"    Name: {name}\n" +
+            $"    Functionality: {functionality}\n"; 
 
-        /*return
-            $"    Name: {Name}\n" +
-            $"    Functionality: {Functionality}";*/        
+        return returnable;   
     }
 }

@@ -22,16 +22,17 @@ public class CreateAmoeba : MonoBehaviour
 
         await Console.PrintMessage($"I see. {amoebaName}. A splendid name.");
 
+        Debug.Log(NewAmoeba(amoebaName).Print());
+
 
     }
 
     public Creature NewAmoeba(string name)
     {
 
-        new Part(new List<Part>(), null, new InternalSystem(), new ExternalSystem(), null, new MuscleSystem(), Vector3.zero, "Core", Vector3.one * 0.000001f, 1400);
+        Part core = new Part(new List<Part>(), null, new InternalSystem(), new ExternalSystem(), null, new MuscleSystem(), Vector3.zero, "Core", Vector3.one * 0.000001f, 1400);
 
-        new Creature(name, 0.0000005f, 1.0f / 365.0f, 1);
-        return null;
+        return new Creature(core, name, 0.0000005f, 1.0f / 365.0f, 1);
     }
 
     // Update is called once per frame

@@ -224,13 +224,13 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 504582481}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 504582483}
+        m_TargetAssemblyTypeName: GetInput, Assembly-CSharp
+        m_MethodName: ReturnInput
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -340,6 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Console: {fileID: 1593747134}
+  Input: {fileID: 504582483}
 --- !u!4 &388874081
 Transform:
   m_ObjectHideFlags: 0
@@ -405,6 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputBox: {fileID: 504582484}
+  overParent: {fileID: 138257330}
 --- !u!114 &504582484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,6 +1003,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4933bde51f06274fa79ccc806056f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toggle: {fileID: 1698238038}
+  console: {fileID: 1593747132}
 --- !u!1 &1698238036
 GameObject:
   m_ObjectHideFlags: 0
