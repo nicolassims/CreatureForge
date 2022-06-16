@@ -7,29 +7,14 @@ using UnityEngine;
 
 public class CreateAmoeba : MonoBehaviour
 {
-    public TextMeshProUGUI Console;
-    //public GameObject ConsoleObj;
-    //private TextMeshProUGUI Console;
+    public ConsoleScript Console;
 
     // Start is called before the first frame update
     async void Start() {
-        await PrintMessage("This is a message, for testing purposes.");
+        await Console.PrintMessage("Let's make a creature.");
 
+        await Console.PrintMessage("We'll start with a very simple one. A single-celled organism.\nAn <i>Amoeba</i>.");
 
-        Debug.Log("finished printing");
-    }
-
-    private async Task PrintMessage(string msg)
-    {
-        while (Console.text != "") {
-            Console.text = Console.text.Remove(Console.text.Length - 1);
-            await Task.Delay(50);
-        }
-
-        while (Console.text != msg) {
-            Console.text += msg[Console.text.Length];
-            await Task.Delay(50);
-        }
     }
 
     // Update is called once per frame
