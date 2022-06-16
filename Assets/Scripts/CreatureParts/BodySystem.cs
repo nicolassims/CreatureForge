@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class BodySystem : MonoBehaviour
+public class BodySystem
 {
-    private List<BodySystem> ConnectedSystems;
-    private Part Part;
-    private string Name;
-    private float Functionality;
+    private List<BodySystem> connectedSystems;
+    private Part parent;
+    private string name;
+    private float functionality;
+
+    public BodySystem(List<BodySystem> connectedSystems, Part parent, string name, float functionality) {
+        this.connectedSystems = connectedSystems;
+        this.parent = parent;
+        this.name = name;
+        this.functionality = functionality;
+    }
+
+    public BodySystem(Part parent) : this(new List<BodySystem>(), parent, $"Unnamed Part", 0.5f) { }
     
     public string Print()
     {
@@ -25,17 +34,5 @@ public class BodySystem : MonoBehaviour
         /*return
             $"    Name: {Name}\n" +
             $"    Functionality: {Functionality}";*/        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

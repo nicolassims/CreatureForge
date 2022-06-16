@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class ExternalSystem : BodySystem
 {
-    private float Sensitivity;
-    private float Hardness;
-    private float Sharpness;
+    private float sensitivity;//0 is completely immune to stimulus. 1 is perfectly sensitive. Can go above 1.
+    private float hardness;//0 is completely impervious to indentation. 1 is completely intangible.
+    private float sharpness;//0 is able to slice through everything. 1 is literally unable to cut anything.
 
-    // Start is called before the first frame update
-    void Start()
+    public ExternalSystem(Part parent) : base(parent)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        sensitivity = 0.5f;
+        hardness = 0.5f;
+        sharpness = 0.5f;
     }
 }

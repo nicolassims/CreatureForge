@@ -17,7 +17,7 @@ public class ConsoleScript : MonoBehaviour
         continueConsole = true;
     }
 
-    public async Task PrintMessage(string msg, int waittime = 0, Vector3 offset = new Vector3()) {
+    public async Task PrintMessage(string msg, bool delayContinue = true, int waittime = 0, Vector3 offset = new Vector3()) {
         while (console.text != "")
         {
             console.text = console.text.Remove(console.text.Length - 1);
@@ -42,18 +42,20 @@ public class ConsoleScript : MonoBehaviour
             await Task.Delay(50);
         }
 
-        if (waittime == 0) {
-            toggle.StartToggling();
-        } else {
-            await Task.Delay(waittime);
-            ContinueText();
-        }
+        if (delayContinue) { 
+            if (waittime == 0) {
+                toggle.StartToggling();
+            } else {
+                await Task.Delay(waittime);
+                ContinueText();
+            }
 
-        while (!continueConsole)
-        {
-            await Task.Delay(1);
-        }
+            while (!continueConsole)
+            {
+                await Task.Delay(1);
+            }
 
-        continueConsole = false;
+            continueConsole = false;
+        }
     }
 }

@@ -6,23 +6,22 @@ enum BodyResources {
     Air,
     Blood,
     Plasma,
-    Sunlight
+    Sunlight,
+    Ectoplasm,
+    Fire,
+    Venom,
+    Poison,
+    Nutrients
 }
 
 public class InternalSystem : BodySystem
 {
-    Dictionary<BodyResources, float> NeededResources;
-    Dictionary<BodyResources, float> CurrentResources;
+    Dictionary<BodyResources, float> neededResources;
+    Dictionary<BodyResources, float> currentResources;
 
-    // Start is called before the first frame update
-    void Start()
+    public InternalSystem(Part parent) : base(parent)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        neededResources = new Dictionary<BodyResources, float>();
+        currentResources = new Dictionary<BodyResources, float>();
     }
 }
