@@ -49,6 +49,7 @@ public class InternalSystem : BodySystem
         }
 
         return base.Print() + 
+            $"    Type: InternalSystem\n" +
             $"    Needed Resources: {neededResourcesString}\n" +
             $"    Current Resources: {currentResourcesString}\n";
     }

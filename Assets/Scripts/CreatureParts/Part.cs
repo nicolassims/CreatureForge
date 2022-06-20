@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Part
 {
+    public string name;
+
     private List<Part> connectedParts;
     private NervousSystem nervousSystem;
     private InternalSystem internalSystem;
@@ -13,7 +15,6 @@ public class Part
     private MuscleSystem muscleSystem;
     private Vector3 relativeToCenter;
     private Vector3 dimensions;
-    private string name;
     private float density;//given in kg/m^-3
 
     public Part(List<Part> connectedParts, NervousSystem nervousSystem, InternalSystem internalSystem, ExternalSystem externalSystem, BoneSystem boneSystem, 

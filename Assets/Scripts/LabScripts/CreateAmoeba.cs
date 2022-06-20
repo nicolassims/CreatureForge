@@ -30,7 +30,16 @@ public class CreateAmoeba : MonoBehaviour
     public Creature NewAmoeba(string name)
     {
 
-        Part core = new Part(new List<Part>(), null, new InternalSystem(), new ExternalSystem(), null, new MuscleSystem(), Vector3.zero, "Core", Vector3.one * 0.000001f, 1400);
+        InternalSystem iSys = new InternalSystem();
+        ExternalSystem exSys = new ExternalSystem();
+        MuscleSystem mSys = new MuscleSystem();
+
+
+        Part core = new Part(new List<Part>(), null, iSys, exSys, null, mSys, Vector3.zero, "Core", Vector3.one * 0.000001f, 1400);
+
+        iSys.SetPart(core);
+        exSys.SetPart(core);
+        mSys.SetPart(core);
 
         return new Creature(core, name, 0.0000005f, 1.0f / 365.0f, 1);
     }
