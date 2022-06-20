@@ -31,7 +31,7 @@ public class Creature
             $"DistanceFromFloor: {distanceFromFloor}\n" +
             $"Age: {age}\n" +
             $"Discipline: {discipline}\n" +
-            //$"Perception: {Perception}\n" +
+            $"Core Part:\n" +
             $"{core.Print(ref PrintedNames)}";
     }
 }

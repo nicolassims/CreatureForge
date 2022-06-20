@@ -40,11 +40,11 @@ public class Part
             $"  Dimensions: {dimensions}\n" +
             $"  Density: {density}\n" +
             $"  Local Position: {relativeToCenter}\n" +
-            $"  MuscleSystem:\n{(muscleSystem == null ? "    None" : muscleSystem.Print())}" +
-            $"  NervousSystem:\n{(nervousSystem == null ? "    None" : nervousSystem.Print())}" +
-            $"  InternalSystem:\n{(internalSystem == null ? "    None" : internalSystem.Print())}" +
-            $"  ExternalSystem:\n{(externalSystem == null ? "    None" : externalSystem.Print())}" +
-            $"  BoneSystem:\n{(boneSystem == null ? "    None" : boneSystem.Print())}";
+            $"  MuscleSystem:\n{(muscleSystem == null ? "    None\n" : muscleSystem.Print())}" +
+            $"  NervousSystem:\n{(nervousSystem == null ? "    None\n" : nervousSystem.Print())}" +
+            $"  InternalSystem:\n{(internalSystem == null ? "    None\n" : internalSystem.Print())}" +
+            $"  ExternalSystem:\n{(externalSystem == null ? "    None\n" : externalSystem.Print())}" +
+            $"  BoneSystem:\n{(boneSystem == null ? "    None\n" : boneSystem.Print())}";
 
         foreach (Part part in connectedParts) {
             if (!printedNames.Contains(part.name)) { 
