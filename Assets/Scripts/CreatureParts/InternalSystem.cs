@@ -48,8 +48,7 @@ public class InternalSystem : BodySystem
             currentResourcesString += $"<{resource}, {currentResources[resource]}>";
         }
 
-        return base.Print() + 
-            $"    Type: InternalSystem\n" +
+        return base.Print() +
             $"    Needed Resources: {neededResourcesString}\n" +
             $"    Current Resources: {currentResourcesString}\n";
     }

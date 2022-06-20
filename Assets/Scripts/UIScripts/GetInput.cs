@@ -31,7 +31,7 @@ public class GetInput : MonoBehaviour
 
         while (overParent.transform.localScale.x < 1)
         {
-            overParent.transform.localScale += Vector3.one * 0.01f;
+            overParent.transform.localScale += Vector3.one * 0.03f;
             await Task.Delay(5);
         }
 
@@ -42,7 +42,7 @@ public class GetInput : MonoBehaviour
 
         while (overParent.transform.localScale.x > 0)
         {
-            overParent.transform.localScale -= Vector3.one * 0.01f;
+            overParent.transform.localScale -= Vector3.one * 0.03f;
             await Task.Delay(5);
         }
 

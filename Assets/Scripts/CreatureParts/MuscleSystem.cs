@@ -18,7 +18,6 @@ public class MuscleSystem : BodySystem
     public override string Print()
     {
         return base.Print() +
-            $"    Type: MuscleSystem\n" +
             $"    Strength: {strength}\n" +
             $"    Reactivity: {reactivity}\n" +
             $"    Precision: {precision}\n";

@@ -18,7 +18,7 @@ public class BodySystem
         this.functionality = functionality;
     }
 
-    public BodySystem() : this(new List<BodySystem>(), $"Unnamed Part", 0.5f, null) { }
+    public BodySystem() : this(new List<BodySystem>(), $"Unnamed BodySystem", 0.5f, null) { }
     
     public void SetPart(Part part)
     {

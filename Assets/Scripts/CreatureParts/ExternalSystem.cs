@@ -18,7 +18,6 @@ public class ExternalSystem : BodySystem
     public override string Print()
     {
         return base.Print() +
-            $"    Type: ExternalSystem\n" +
             $"    Sensitivity: {sensitivity}\n" +
             $"    Hardness: {hardness}\n" +
             $"    Sharpness: {sharpness}\n";
