@@ -12,7 +12,9 @@ public class CreateAmoeba : MonoBehaviour
 
     // Start is called before the first frame update
     async void Start() {
-        await Console.PrintMessage("Let's make a creature.");
+        //FIX THIS: Commenting for expediency of testing.
+
+        /*await Console.PrintMessage("Let's make a creature.");
 
         await Console.PrintMessage("We'll start with a very simple one. A single-celled organism.\nAn <i>Amoeba</i>.");
 
@@ -20,11 +22,11 @@ public class CreateAmoeba : MonoBehaviour
 
         string amoebaName = await Input.Input();
 
-        await Console.PrintMessage($"I see. {amoebaName}. A splendid name.");
+        await Console.PrintMessage($"I see. {amoebaName}. A splendid name.");*/
 
-        Debug.Log(NewAmoeba(amoebaName).Print());
+        Debug.Log(NewAmoeba("Dave").Print());
 
-
+        
     }
 
     public Creature NewAmoeba(string name)

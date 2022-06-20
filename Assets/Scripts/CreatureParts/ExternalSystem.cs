@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ExternalSystem : BodySystem
 {
+
+    private Dictionary<PerceptionType, float> perceptionDictionary;
     private float sensitivity;//0 is completely immune to stimulus. 1 is perfectly sensitive. Can go above 1.
     private float hardness;//0 is completely impervious to indentation. 1 is completely intangible.
     private float sharpness;//0 is able to slice through everything. 1 is literally unable to cut anything.
@@ -21,5 +24,15 @@ public class ExternalSystem : BodySystem
             $"    Sensitivity: {sensitivity}\n" +
             $"    Hardness: {hardness}\n" +
             $"    Sharpness: {sharpness}\n";
+    }
+
+    public void PopulatePerceptionDictionary(ref Dictionary<PerceptionType, float> newDict) {
+        foreach (PerceptionType perceptionType in perceptionDictionary.Keys) {
+            if (newDict.ContainsKey(perceptionType)) {
+                newDict[perceptionType] += perceptionDictionary[perceptionType];
+            } else {
+                newDict[perceptionType] = perceptionDictionary[perceptionType];
+            }
+        }
     }
 }

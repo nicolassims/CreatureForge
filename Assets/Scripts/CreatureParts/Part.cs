@@ -31,6 +31,23 @@ public class Part
         this.density = density;
     }
 
+    public void GetPerception(ref Dictionary<PerceptionType, float> perceptionDictionary, ref List<string> checkedParts)
+    {
+        if (!checkedParts.Contains(name))
+        {
+            if (externalSystem != null)
+            {
+                checkedParts.Add(name);
+                externalSystem.PopulatePerceptionDictionary(ref perceptionDictionary);
+            }
+
+            foreach (var part in connectedParts)
+            {
+                part.GetPerception(ref perceptionDictionary, ref checkedParts);
+            }
+        }
+    }
+
     internal object Print(ref List<string> printedNames)
     {
         printedNames.Add(name);
