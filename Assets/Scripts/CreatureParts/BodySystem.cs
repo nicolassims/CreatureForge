@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BodySystem
 {
+    private const float MAXFUNCTIONALITY = 1;
+
     private Part part;
     private List<BodySystem> connectedSystems;
     private string name;
@@ -43,6 +45,7 @@ public class BodySystem
             $"    Part of Part: {part.name}\n" +
             $"    Connected Systems: {connectedSystemsString}\n" +
             $"    Name: {name}\n" +
+            $"    MaxFunctionality: {MAXFUNCTIONALITY}" +
             $"    Functionality: {functionality}\n"; 
 
         return returnable;   
