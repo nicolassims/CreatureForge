@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//these resources are, as of right now, only things the body part absolutely and immediately requires to function
+//if a body part lost all of this resource, it would entirely cease to function
 public enum BodyResources
 {
     Air,
     Blood,
-    Plasma,
-    Sunlight,
+    Ooze,
     Ectoplasm,
     Fire,
     Venom,
     Poison,
-    Nutrients
 }
 
 public enum PerceptionType
@@ -26,22 +26,7 @@ public enum PerceptionType
     VibrationAir,
     VibrationGround,
     Touch,
-    Magnetism
+    Magnetism,
+    Temperature,
+    Chemicals
 }
-
-
-/*public class Enums : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
-*/
