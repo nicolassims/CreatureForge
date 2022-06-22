@@ -7,6 +7,7 @@ public class Part
 {
     public string name;
 
+    private Part toCore;
     private List<Part> connectedParts;
     private NervousSystem nervousSystem;
     private InternalSystem internalSystem;
@@ -19,6 +20,7 @@ public class Part
 
     public Part(List<Part> connectedParts, NervousSystem nervousSystem, InternalSystem internalSystem, ExternalSystem externalSystem, BoneSystem boneSystem, 
             MuscleSystem muscleSystem, Vector3 relativeToCenter, string name, Vector3 dimensions, float density) {
+        toCore = null;
         this.connectedParts = connectedParts;
         this.nervousSystem = nervousSystem;
         this.internalSystem = internalSystem;
@@ -29,6 +31,15 @@ public class Part
         this.name = name;
         this.dimensions = dimensions;
         this.density = density;
+    }
+
+    public ExternalSystem GetExternalSystem() { 
+        return externalSystem;
+    }
+
+    public Part GetToCore()
+    {
+        return toCore;
     }
 
     public void GetPerception(ref Dictionary<PerceptionType, float> perceptionDictionary, ref List<string> checkedParts)
@@ -70,5 +81,14 @@ public class Part
         }
 
         return returnable;
+    }
+
+    internal void AssignCoreSteps(ref Dictionary<Part, int> pathDict, Part prevPart, int depth)
+    {
+        if (!pathDict.ContainsKey(this) || pathDict[this] > depth)
+        {
+            pathDict[this] = depth;
+            toCore = prevPart;
+        }
     }
 }

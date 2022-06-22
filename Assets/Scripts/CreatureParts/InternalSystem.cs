@@ -13,6 +13,18 @@ public class InternalSystem : BodySystem
         currentResources = new Dictionary<BodyResources, float>();
     }
 
+    public void SetResources(Dictionary<BodyResources, float> resources)
+    {
+        neededResources = resources;
+        currentResources = resources;
+    }
+
+    public void SetResources(BodyResources br, float amount)
+    {
+        neededResources.Add(br, amount);
+        currentResources.Add(br, amount);
+    }
+
     public override string Print()
     {
         string neededResourcesString = "";
@@ -22,22 +34,24 @@ public class InternalSystem : BodySystem
         {
             if (neededResourcesString != "")
             {
-                neededResourcesString += ", ";
+                neededResourcesString += "\n";
             }
-            neededResourcesString += $"<{resource}, {neededResources[resource]}>";
+            neededResourcesString += $"      {resource}: {neededResources[resource]}";
         }
 
         foreach (BodyResources resource in currentResources.Keys)
         {
             if (currentResourcesString != "")
             {
-                currentResourcesString += ", ";
+                currentResourcesString += "\n";
             }
-            currentResourcesString += $"<{resource}, {currentResources[resource]}>";
+            currentResourcesString += $"      {resource}: {currentResources[resource]}";
         }
 
         return base.Print() +
-            $"    Needed Resources: {neededResourcesString}\n" +
-            $"    Current Resources: {currentResourcesString}\n";
+            $"    Needed Resources:\n" +
+            $"{neededResourcesString}\n" +
+            $"    Current Resources\n" +
+            $"{currentResourcesString}\n";
     }
 }

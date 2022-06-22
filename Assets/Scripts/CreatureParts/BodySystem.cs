@@ -9,43 +9,40 @@ public class BodySystem
     private const float MAXFUNCTIONALITY = 1;
 
     private Part part;
-    private List<BodySystem> connectedSystems;
     private string name;
     private float functionality;
 
-    public BodySystem(List<BodySystem> connectedSystems, string name, float functionality, Part part) {
+    public BodySystem(string name, float functionality, Part part) {
         this.part = part;
-        this.connectedSystems = connectedSystems;
         this.name = name;
         this.functionality = functionality;
     }
 
-    public BodySystem() : this(new List<BodySystem>(), $"Unnamed BodySystem", 0.5f, null) { }
+    public BodySystem() : this($"BodySystem #{Random.Range(0, 100000)}", 1, null) { }
     
     public void SetPart(Part part)
     {
         this.part = part;
     }
 
+    public Part GetPart()
+    {
+        return part;
+    }
+
+    public float GetFunctionality()
+    {
+        return functionality;
+    }
+
     public virtual string Print()
     {
         string returnable = "";
-        string connectedSystemsString = "";
-
-        foreach (BodySystem system in connectedSystems)
-        {
-            if (connectedSystemsString != "")
-            {
-                connectedSystemsString += ", ";
-            }
-            connectedSystemsString += system.name;
-        }
 
         returnable +=
             $"    Part of Part: {part.name}\n" +
-            $"    Connected Systems: {connectedSystemsString}\n" +
             $"    Name: {name}\n" +
-            $"    MaxFunctionality: {MAXFUNCTIONALITY}" +
+            $"    MaxFunctionality: {MAXFUNCTIONALITY}\n" +
             $"    Functionality: {functionality}\n"; 
 
         return returnable;   

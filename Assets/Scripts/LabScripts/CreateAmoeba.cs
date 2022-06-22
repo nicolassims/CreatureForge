@@ -40,10 +40,16 @@ public class CreateAmoeba : MonoBehaviour
         Part core = new Part(new List<Part>(), null, iSys, exSys, null, mSys, Vector3.zero, "Core", Vector3.one * 0.000001f, 1400);
 
         iSys.SetPart(core);
+        iSys.SetResources(BodyResources.Ooze, 0.005f);
+        iSys.SetResources(BodyResources.Air, 0.005f);
         exSys.SetPart(core);
+        exSys.SetPerceptionDictionary(PerceptionType.Chemicals, 0.005f);
+        exSys.SetPerceptionDictionary(PerceptionType.Touch, 0.005f);
+        exSys.SetPerceptionDictionary(PerceptionType.Temperature, 0.005f);
+        exSys.SetPerceptionDictionary(PerceptionType.Magnetism, 0.005f);
         mSys.SetPart(core);
 
-        return new Creature(core, name, 0.0000005f, 1.0f / 365.0f, 1);
+        return new Creature(new List<Part>() { core }, name, 0.0000005f, 1.0f / 365.0f, 1);
     }
 
     // Update is called once per frame

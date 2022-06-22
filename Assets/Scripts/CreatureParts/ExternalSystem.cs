@@ -16,22 +16,51 @@ public class ExternalSystem : BodySystem
         sensitivity = 0.5f;
         hardness = 0.5f;
         sharpness = 0.5f;
+        perceptionDictionary = new Dictionary<PerceptionType, float>();
+    }
+
+    public void SetPerceptionDictionary(Dictionary<PerceptionType, float> pd)
+    {
+        perceptionDictionary = pd;
+    }
+
+    public void SetPerceptionDictionary(PerceptionType pt, float strength)
+    {
+        perceptionDictionary.Add(pt, strength);
     }
 
     public override string Print()
     {
+        string sensesdict = perceptionDictionary.Count == 0 ? "      None" : "";
+        foreach (PerceptionType pt in perceptionDictionary.Keys) {
+            sensesdict += $"      {pt}: {perceptionDictionary[pt]}\n";
+        }
+
         return base.Print() +
             $"    Sensitivity: {sensitivity}\n" +
             $"    Hardness: {hardness}\n" +
-            $"    Sharpness: {sharpness}\n";
+            $"    Sharpness: {sharpness}\n" +
+            $"    Senses Dictionary:\n" +
+            $"{sensesdict}";
     }
 
     public void PopulatePerceptionDictionary(ref Dictionary<PerceptionType, float> newDict) {
+        float multiplier = 1;//set one as the default multiplier
+        Part nextPart = GetPart();//get the part this external system is attached to
+        while (nextPart != null) {//if the nextPart is not null, which it can never be on the first loop...
+            ExternalSystem nextExSys = nextPart.GetExternalSystem();
+            if (nextExSys == null) {
+                return;
+            }
+            multiplier *= nextExSys.GetFunctionality();//multiply the multiplier by the functionality of the external system of the nextPart
+            nextPart = nextPart.GetToCore();//then set the nextPart to be one step closer to the core
+        }
+
         foreach (PerceptionType perceptionType in perceptionDictionary.Keys) {
             if (newDict.ContainsKey(perceptionType)) {
-                newDict[perceptionType] += perceptionDictionary[perceptionType];
+                newDict[perceptionType] += perceptionDictionary[perceptionType] * multiplier;
             } else {
-                newDict[perceptionType] = perceptionDictionary[perceptionType];
+                newDict[perceptionType] = perceptionDictionary[perceptionType] * multiplier;
             }
         }
     }
