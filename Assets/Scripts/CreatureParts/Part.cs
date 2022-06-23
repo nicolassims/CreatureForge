@@ -33,12 +33,20 @@ public class Part
         this.density = density;
     }
 
+    internal void GetParts(ref List<Part> foundParts) {
+        if (!foundParts.Contains(this)) {
+            foundParts.Add(this);
+            foreach (Part part in connectedParts) { 
+                part.GetParts(ref foundParts);
+            }
+        }
+    }
+
     public ExternalSystem GetExternalSystem() { 
         return externalSystem;
     }
 
-    public Part GetToCore()
-    {
+    public Part GetToCore() {
         return toCore;
     }
 
@@ -59,27 +67,28 @@ public class Part
         }
     }
 
-    internal object Print(ref List<string> printedNames)
+    internal string Print(ref List<Part> printedNames)
     {
-        printedNames.Add(name);
+        string returnable = "";
+        if (!printedNames.Contains(this))
+        {
+            printedNames.Add(this);
 
-        string returnable = 
-            $"  Name: {name}\n" +
-            $"  Dimensions: {dimensions}\n" +
-            $"  Density: {density}\n" +
-            $"  Local Position: {relativeToCenter}\n" +
-            $"  MuscleSystem:\n{(muscleSystem == null ? "    None\n" : muscleSystem.Print())}" +
-            $"  NervousSystem:\n{(nervousSystem == null ? "    None\n" : nervousSystem.Print())}" +
-            $"  InternalSystem:\n{(internalSystem == null ? "    None\n" : internalSystem.Print())}" +
-            $"  ExternalSystem:\n{(externalSystem == null ? "    None\n" : externalSystem.Print())}" +
-            $"  BoneSystem:\n{(boneSystem == null ? "    None\n" : boneSystem.Print())}";
+            returnable =
+                $"  Name: {name}\n" +
+                $"  Dimensions: {dimensions}\n" +
+                $"  Density: {density}\n" +
+                $"  Local Position: {relativeToCenter}\n" +
+                $"  MuscleSystem:\n{(muscleSystem == null ? "    None\n" : muscleSystem.Print())}" +
+                $"  NervousSystem:\n{(nervousSystem == null ? "    None\n" : nervousSystem.Print())}" +
+                $"  InternalSystem:\n{(internalSystem == null ? "    None\n" : internalSystem.Print())}" +
+                $"  ExternalSystem:\n{(externalSystem == null ? "    None\n" : externalSystem.Print())}" +
+                $"  BoneSystem:\n{(boneSystem == null ? "    None\n" : boneSystem.Print())}";
 
-        foreach (Part part in connectedParts) {
-            if (!printedNames.Contains(part.name)) { 
-                returnable += part.Print(ref printedNames);
+            foreach (Part part in connectedParts) {
+                returnable += part.Print(ref printedNames);  
             }
         }
-
         return returnable;
     }
 

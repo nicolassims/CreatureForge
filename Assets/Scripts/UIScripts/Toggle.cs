@@ -41,15 +41,15 @@ public class Toggle : MonoBehaviour
     {
         if (State == UIState.Creating) {
             if (gameObject.transform.localScale.x < 1) {
-                gameObject.transform.localScale += Vector3.one * 0.03f;
+                gameObject.transform.localScale += Vector3.one * 0.01f;
             } else {
                 State = UIState.Passive;
             }
         } else if (State == UIState.Passive) {
-            gameObject.transform.Translate(Mathf.Sin(Mathf.PI * Time.time) * 0.15f, 0, 0, Space.World);
+            gameObject.transform.Translate(Mathf.Sin(Mathf.PI * Time.time) * 0.05f, 0, 0, Space.World);
         } else if (State == UIState.Destroying) {
             if (gameObject.transform.localScale.x > 0) {
-                gameObject.transform.localScale -= Vector3.one * 0.09f;
+                gameObject.transform.localScale -= Vector3.one * 0.03f;
             } else {
                 EndToggling();
             }

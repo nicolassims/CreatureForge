@@ -9,9 +9,12 @@ public class CreateAmoeba : MonoBehaviour
 {
     public ConsoleScript Console;
     public GetInput Input;
+    public AttackFactory Colosseum;
 
     // Start is called before the first frame update
     async void Start() {
+        await Task.Delay(1);
+
         //FIX THIS: Commenting for expediency of testing.
 
         /*await Console.PrintMessage("Let's make a creature.");
@@ -24,7 +27,11 @@ public class CreateAmoeba : MonoBehaviour
 
         await Console.PrintMessage($"I see. {amoebaName}. A splendid name.");*/
 
-        Debug.Log(NewAmoeba("Dave").Print());
+        Creature dave = NewAmoeba("Dave");
+
+        Debug.Log(dave.Print());
+
+        await Colosseum.CreateAttack(dave);
 
         
     }
@@ -50,11 +57,5 @@ public class CreateAmoeba : MonoBehaviour
         mSys.SetPart(core);
 
         return new Creature(new List<Part>() { core }, name, 0.0000005f, 1.0f / 365.0f, 1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

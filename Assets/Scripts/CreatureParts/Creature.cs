@@ -32,6 +32,15 @@ public class Creature
         }
     }
 
+    public List<Part> GetParts()
+    {
+        List<Part> foundParts = new List<Part>();
+        foreach (Part core in cores) {
+            core.GetParts(ref foundParts);
+        }
+        return foundParts;
+    }
+
     public Dictionary<PerceptionType, float> GetPerception()
     {
         Dictionary<PerceptionType, float> PerceptionDictionary = new Dictionary<PerceptionType, float>();
@@ -44,7 +53,7 @@ public class Creature
 
     public string Print()
     {
-        List<string> PrintedNames = new List<string>();
+        List<Part> PrintedNames = new List<Part>();
         string coreoutput = "No cores!";
 
         foreach (Part core in cores)
