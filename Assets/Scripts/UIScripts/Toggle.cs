@@ -39,7 +39,7 @@ public class Toggle : MonoBehaviour
     }
 
     // Update is called once per frame
-    private static void Update() {
+    private void Update() {
         if (State == UIState.Creating) {
             if (GameObject.transform.localScale.x < 1) {
                 GameObject.transform.localScale += Vector3.one * 0.01f;

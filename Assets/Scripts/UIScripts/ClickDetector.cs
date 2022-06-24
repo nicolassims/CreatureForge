@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ClickDetector : MonoBehaviour {
 
-    public void OnMouseUpAsButton()
-    {
+    public void OnMouseUpAsButton() {
         Toggle.StopToggling();
         ConsoleScript.ContinueText();
     }

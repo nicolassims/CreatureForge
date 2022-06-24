@@ -6,38 +6,41 @@ using UnityEngine;
 
 public class GetInput : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI inputBox;
-    [SerializeField] private GameObject overParent;
+    private static bool hasInput = false;
 
     private void Start()
     {
+        GameObject overParent = GameObject.Find("TextInput");
         overParent.transform.localScale = Vector3.zero;
-        //state = UIState.Inactive;
-        overParent.SetActive(false);
+    }
+
+    public void HasInput() {
+        hasInput = true;
     }
 
     public static async Task<string> Input()//FIX THIS: Sanitize inputs
     {
         GameObject overParent = GameObject.Find("TextInput");
-        TextMeshProUGUI inputBox = FindObjectOfType<TextMeshProUGUI>();
+        TMP_InputField inputBox = overParent.GetComponent<TMP_InputField>();
 
-        overParent.SetActive(true);
         overParent.transform.localScale = Vector3.zero;
 
-        while (overParent.transform.localScale.x < 1)
-        {
+        while (overParent.transform.localScale.x < 1) {
             overParent.transform.localScale += Vector3.one * 0.03f;
             await Task.Delay(5);
         }
 
-        while (overParent.transform.localScale.x > 0)
-        {
+        while (!hasInput) {
+            await Task.Delay(1);
+        }
+
+        while (overParent.transform.localScale.x > 0) {
             overParent.transform.localScale -= Vector3.one * 0.03f;
             await Task.Delay(5);
         }
 
         overParent.transform.localScale = Vector3.zero;
-        overParent.SetActive(false);
+        hasInput = false;
 
         return inputBox.text;
     }

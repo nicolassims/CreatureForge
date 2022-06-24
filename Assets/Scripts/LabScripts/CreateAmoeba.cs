@@ -32,9 +32,7 @@ public class CreateAmoeba : MonoBehaviour
         
     }
 
-    public Creature NewAmoeba(string name)
-    {
-
+    public Creature NewAmoeba(string name) {
         InternalSystem iSys = new InternalSystem();
         ExternalSystem exSys = new ExternalSystem();
         MuscleSystem mSys = new MuscleSystem();
