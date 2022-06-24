@@ -12,44 +12,45 @@ public enum UIState
 
 public class Toggle : MonoBehaviour
 {
-    private UIState State;
+    private static UIState State;
+    private static GameObject GameObject;
 
     // Start is called before the first frame update
     private void Start() {
+        GameObject = GameObject.Find("Toggle");
         EndToggling();
     }
 
-    public void StartToggling()
+    public static void StartToggling()
     {
-        gameObject.SetActive(true);
+        GameObject.SetActive(true);
         State = UIState.Creating;
     }
 
-    public void StopToggling()
+    public static void StopToggling()
     {
         State = UIState.Destroying;
     }
 
-    private void EndToggling()
+    private static void EndToggling()
     {
-        gameObject.SetActive(false);
+        GameObject.SetActive(false);
         State = UIState.Inactive;
     }
 
     // Update is called once per frame
-    private void Update()
-    {
+    private static void Update() {
         if (State == UIState.Creating) {
-            if (gameObject.transform.localScale.x < 1) {
-                gameObject.transform.localScale += Vector3.one * 0.01f;
+            if (GameObject.transform.localScale.x < 1) {
+                GameObject.transform.localScale += Vector3.one * 0.01f;
             } else {
                 State = UIState.Passive;
             }
         } else if (State == UIState.Passive) {
-            gameObject.transform.Translate(Mathf.Sin(Mathf.PI * Time.time) * 0.05f, 0, 0, Space.World);
+            GameObject.transform.Translate(Mathf.Sin(Mathf.PI * Time.time) * 0.05f, 0, 0, Space.World);
         } else if (State == UIState.Destroying) {
-            if (gameObject.transform.localScale.x > 0) {
-                gameObject.transform.localScale -= Vector3.one * 0.03f;
+            if (GameObject.transform.localScale.x > 0) {
+                GameObject.transform.localScale -= Vector3.one * 0.03f;
             } else {
                 EndToggling();
             }

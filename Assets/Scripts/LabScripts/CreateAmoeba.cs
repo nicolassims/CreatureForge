@@ -7,10 +7,6 @@ using UnityEngine;
 
 public class CreateAmoeba : MonoBehaviour
 {
-    public ConsoleScript Console;
-    public GetInput Input;
-    public AttackFactory Colosseum;
-
     // Start is called before the first frame update
     async void Start() {
         await Task.Delay(1);
@@ -31,7 +27,7 @@ public class CreateAmoeba : MonoBehaviour
 
         Debug.Log(dave.Print());
 
-        await Colosseum.CreateAttack(dave);
+        await AttackFactory.CreateAttack(dave);
 
         
     }

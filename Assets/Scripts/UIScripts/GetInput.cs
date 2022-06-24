@@ -8,24 +8,19 @@ public class GetInput : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI inputBox;
     [SerializeField] private GameObject overParent;
-    //private UIState state;
-    private bool returnInput;
 
     private void Start()
     {
         overParent.transform.localScale = Vector3.zero;
         //state = UIState.Inactive;
         overParent.SetActive(false);
-        returnInput = false;
     }
 
-    public void ReturnInput()
+    public static async Task<string> Input()//FIX THIS: Sanitize inputs
     {
-        returnInput = true;
-    }
+        GameObject overParent = GameObject.Find("TextInput");
+        TextMeshProUGUI inputBox = FindObjectOfType<TextMeshProUGUI>();
 
-    public async Task<string> Input()//FIX THIS: Sanitize inputs
-    {
         overParent.SetActive(true);
         overParent.transform.localScale = Vector3.zero;
 
@@ -33,11 +28,6 @@ public class GetInput : MonoBehaviour
         {
             overParent.transform.localScale += Vector3.one * 0.03f;
             await Task.Delay(5);
-        }
-
-        while (!returnInput)
-        {
-            await Task.Delay(1);
         }
 
         while (overParent.transform.localScale.x > 0)
