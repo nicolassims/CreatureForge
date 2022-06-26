@@ -105,7 +105,7 @@ public class AttackFactory {
 
             if (nextPart is EndPart) {
                 //end the attack for this body part.
-                return;
+                return firstattack;//FIX THIS
             }
         }
 

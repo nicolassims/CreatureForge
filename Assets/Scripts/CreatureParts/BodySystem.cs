@@ -40,7 +40,7 @@ public class BodySystem
         string returnable = "";
 
         returnable +=
-            $"    Part of Part: {part.name}\n" +
+            $"    Part of Part: {part.GetName()}\n" +
             $"    Name: {name}\n" +
             $"    MaxFunctionality: {MAXFUNCTIONALITY}\n" +
             $"    Functionality: {functionality}\n"; 
