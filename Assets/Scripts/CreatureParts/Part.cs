@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Part
-{
-    public string name;
+public class Part {
+    private string name;
 
     private Part toCore;
     private List<Part> connectedParts;
@@ -18,7 +17,7 @@ public class Part
     private Vector3 dimensions;
     private float density;//given in kg/m^-3
 
-    public Part(List<Part> connectedParts, NervousSystem nervousSystem, InternalSystem internalSystem, ExternalSystem externalSystem, BoneSystem boneSystem, 
+    public Part(List<Part> connectedParts, NervousSystem nervousSystem, InternalSystem internalSystem, ExternalSystem externalSystem, BoneSystem boneSystem,
             MuscleSystem muscleSystem, Vector3 relativeToCenter, string name, Vector3 dimensions, float density) {
         toCore = null;
         this.connectedParts = connectedParts;
@@ -33,16 +32,24 @@ public class Part
         this.density = density;
     }
 
+    public string GetName() {
+        return name;
+    }
+
+    public List<Part> GetConnectedParts() {
+        return connectedParts;
+    }
+
     internal void GetParts(ref List<Part> foundParts) {
         if (!foundParts.Contains(this)) {
             foundParts.Add(this);
-            foreach (Part part in connectedParts) { 
+            foreach (Part part in connectedParts) {
                 part.GetParts(ref foundParts);
             }
         }
     }
 
-    public ExternalSystem GetExternalSystem() { 
+    public ExternalSystem GetExternalSystem() {
         return externalSystem;
     }
 
@@ -50,28 +57,22 @@ public class Part
         return toCore;
     }
 
-    public void GetPerception(ref Dictionary<PerceptionType, float> perceptionDictionary, ref List<string> checkedParts)
-    {
-        if (!checkedParts.Contains(name))
-        {
-            if (externalSystem != null)
-            {
+    public void GetPerception(ref Dictionary<PerceptionType, float> perceptionDictionary, ref List<string> checkedParts) {
+        if (!checkedParts.Contains(name)) {
+            if (externalSystem != null) {
                 checkedParts.Add(name);
                 externalSystem.PopulatePerceptionDictionary(ref perceptionDictionary);
             }
 
-            foreach (var part in connectedParts)
-            {
+            foreach (var part in connectedParts) {
                 part.GetPerception(ref perceptionDictionary, ref checkedParts);
             }
         }
     }
 
-    internal string Print(ref List<Part> printedNames)
-    {
+    internal string Print(ref List<Part> printedNames) {
         string returnable = "";
-        if (!printedNames.Contains(this))
-        {
+        if (!printedNames.Contains(this)) {
             printedNames.Add(this);
 
             returnable =
@@ -86,16 +87,14 @@ public class Part
                 $"  BoneSystem:\n{(boneSystem == null ? "    None\n" : boneSystem.Print())}";
 
             foreach (Part part in connectedParts) {
-                returnable += part.Print(ref printedNames);  
+                returnable += part.Print(ref printedNames);
             }
         }
         return returnable;
     }
 
-    internal void AssignCoreSteps(ref Dictionary<Part, int> pathDict, Part prevPart, int depth)
-    {
-        if (!pathDict.ContainsKey(this) || pathDict[this] > depth)
-        {
+    internal void AssignCoreSteps(ref Dictionary<Part, int> pathDict, Part prevPart, int depth) {
+        if (!pathDict.ContainsKey(this) || pathDict[this] > depth) {
             pathDict[this] = depth;
             toCore = prevPart;
         }
