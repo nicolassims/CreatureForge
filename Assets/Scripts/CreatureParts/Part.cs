@@ -17,8 +17,8 @@ public class Part {
     private Vector3 dimensions;
     private float density;//given in kg/m^-3
 
-    public Part(List<Part> connectedParts, NervousSystem nervousSystem, InternalSystem internalSystem, ExternalSystem externalSystem, BoneSystem boneSystem,
-            MuscleSystem muscleSystem, Vector3 relativeToCenter, string name, Vector3 dimensions, float density) {
+    public Part(List<Part> connectedParts, NervousSystem nervousSystem, InternalSystem internalSystem, ExternalSystem externalSystem, 
+            BoneSystem boneSystem, MuscleSystem muscleSystem, Vector3 relativeToCenter, string name, Vector3 dimensions, float density) {
         toCore = null;
         this.connectedParts = connectedParts;
         this.nervousSystem = nervousSystem;
@@ -30,6 +30,10 @@ public class Part {
         this.name = name;
         this.dimensions = dimensions;
         this.density = density;
+    }
+
+    public Vector3 GetRelativeToCenter() {
+        return relativeToCenter;
     }
 
     public string GetName() {
@@ -70,6 +74,29 @@ public class Part {
         }
     }
 
+    internal float GetStrength() {
+        if (muscleSystem != null) {
+            return muscleSystem.GetStrength();
+        } else {
+            return 0;
+        }
+    }
+
+    internal float GetPrecision() {
+        if (muscleSystem != null) {
+            return muscleSystem.GetPrecision();
+        } else {
+            return 1;
+        }
+    }
+
+    internal void AssignCoreSteps(ref Dictionary<Part, int> pathDict, Part prevPart, int depth) {
+        if (!pathDict.ContainsKey(this) || pathDict[this] > depth) {
+            pathDict[this] = depth;
+            toCore = prevPart;
+        }
+    }
+
     internal string Print(ref List<Part> printedNames) {
         string returnable = "";
         if (!printedNames.Contains(this)) {
@@ -91,12 +118,5 @@ public class Part {
             }
         }
         return returnable;
-    }
-
-    internal void AssignCoreSteps(ref Dictionary<Part, int> pathDict, Part prevPart, int depth) {
-        if (!pathDict.ContainsKey(this) || pathDict[this] > depth) {
-            pathDict[this] = depth;
-            toCore = prevPart;
-        }
     }
 }

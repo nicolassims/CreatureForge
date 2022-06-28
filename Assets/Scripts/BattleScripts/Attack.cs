@@ -31,6 +31,32 @@ public class AttackStep {
     public void AddNextPart(Part nextPart) {
         nextAttacks.Add(new AttackStep(nextPart, attackingPart));
     }
+
+    internal float GetStrength() {//does not require loop guard, because attacks should not be able to trigger loops
+        float totalStrength = attackingPart.GetStrength();
+        foreach (AttackStep step in nextAttacks) { 
+            totalStrength += step.GetStrength(); 
+        }
+        return totalStrength / nextAttacks.Count;
+    }
+
+    internal float GetPrecision() {
+        float totalPrecision = attackingPart.GetPrecision();
+        foreach (AttackStep step in nextAttacks) {
+            totalPrecision *= step.GetPrecision();
+        }
+        return totalPrecision / nextAttacks.Count;
+    }
+
+    internal void GetFinalParts(ref List<Part> finalparts) {
+        if (nextAttacks.Count == 0) {
+            finalparts.Add(GetPart());
+        } else {
+            foreach (AttackStep step in nextAttacks) {
+                step.GetFinalParts(ref finalparts);
+            }
+        }
+    }
 }
 
 public class Attack {
@@ -62,10 +88,16 @@ public class Attack {
     }
 
     public float GetPrecision() {
-        throw new NotImplementedException();
+        return attackStep.GetPrecision();
     }
 
     public float GetStrength() {
-        return GetStrength(attackStep);
+        return attackStep.GetStrength();
+    }
+
+    internal List<Part> GetFinalParts() {
+        List<Part> finalparts = new List<Part>();
+        attackStep.GetFinalParts(ref finalparts);
+        return finalparts;
     }
 }

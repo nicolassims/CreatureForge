@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +22,13 @@ public class MuscleSystem : BodySystem
             $"    Strength: {strength}\n" +
             $"    Reactivity: {reactivity}\n" +
             $"    Precision: {precision}\n";
+    }
+
+    internal float GetStrength() {
+        return GetFunctionality() * strength;
+    }
+
+    internal float GetPrecision() {
+        return GetPrecision() * precision;
     }
 }

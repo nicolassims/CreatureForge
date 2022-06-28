@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class AttackFactory {
 
     public static async Task<Attack> CreateAttack(Creature attackingCreature, Creature attackedCreature) {
         Part firstpart = null;
+        List<Part> enemyParts = attackedCreature.GetParts();
 
         while (firstpart == null) {
             await ConsoleScript.PrintMessage("Type the name or id of the body part you wish to start the attack from.");
@@ -26,12 +28,35 @@ public class AttackFactory {
         while (attackedPart == null) {
             await ConsoleScript.PrintMessage("Type the name or id of the body part on the enemy you wish to attack.");
 
-            attackedPart = await SelectPart(attackedCreature.GetParts());
+            attackedPart = await SelectPart(enemyParts);
         }
 
         attack.SetAttackedCreatureAndPart(attackedCreature, attackedPart);
 
+        float strength = attack.GetStrength();//purely additive. Strength of all musclesystems is added together
+        float precision = attack.GetPrecision();//multiplicative. All precision values are multiplied together.
+
+        enemyParts = SortTargets(enemyParts, attackedPart);
+
+        List<Part> attackingParts = attack.GetFinalParts();
+        //this should return a list of every part that's actually making impact with the foe.
+        //consider using this for selecting an attack target, so you can possibly have multiple attack targets
+
+        //figure out if this attack actually hits the intended part
+
         return attack;
+    }
+
+    //take list of all enemy parts, as well as a target
+    //put the target as the first element of the list
+    //put all other parts into the list in order of proximity to the target part
+    private static List<Part> SortTargets(List<Part> enemyParts, Part attackedPart) {
+        Vector3 targetLoc = attackedPart.GetRelativeToCenter();
+        enemyParts.Sort(delegate (Part x, Part y) {
+            return (x.GetRelativeToCenter() - targetLoc).magnitude.CompareTo((y.GetRelativeToCenter() - targetLoc).magnitude);
+        });
+
+        return enemyParts;
     }
 
     private static async Task<Part> SelectPart(List<Part> parts, bool forAttack = false) {
