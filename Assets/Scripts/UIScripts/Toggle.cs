@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UIState
-{
+public enum UIState {
     Creating,
     Passive,
     Destroying,
     Inactive
 }
 
-public class Toggle : MonoBehaviour
-{
+public class Toggle : MonoBehaviour {
     private static UIState State;
     private static GameObject GameObject;
 
@@ -21,19 +19,16 @@ public class Toggle : MonoBehaviour
         EndToggling();
     }
 
-    public static void StartToggling()
-    {
+    public static void StartToggling() {
         GameObject.SetActive(true);
         State = UIState.Creating;
     }
 
-    public static void StopToggling()
-    {
+    public static void StopToggling() {
         State = UIState.Destroying;
     }
 
-    private static void EndToggling()
-    {
+    private static void EndToggling() {
         GameObject.SetActive(false);
         State = UIState.Inactive;
     }

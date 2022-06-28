@@ -44,7 +44,7 @@ public class ConsoleScript : MonoBehaviour {
             await Task.Delay(50);
         }
 
-        if (delayContinue) { 
+        if (delayContinue) {
             if (waittime == 0) {
                 Toggle.StartToggling();
             } else {
@@ -52,11 +52,11 @@ public class ConsoleScript : MonoBehaviour {
                 ContinueText();
             }
 
+            continueConsole = false;
+
             while (!continueConsole) {
                 await Task.Delay(1);
             }
-
-            continueConsole = false;
         }
     }
 }
