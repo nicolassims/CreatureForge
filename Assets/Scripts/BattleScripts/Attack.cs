@@ -33,9 +33,10 @@ public class AttackStep {
     }
 }
 
-public class Attack
-{
+public class Attack {
     private readonly AttackStep attackStep;
+    private Creature attackedCreature;
+    private Part attackedPart;
 
     public Attack(AttackStep attackStep) {
         this.attackStep = attackStep;
@@ -47,13 +48,24 @@ public class Attack
         return attackStep;
     }
 
-    public float GetPrecision()
-    {
+    public void SetAttackedCreatureAndPart(Creature creature, Part part) {
+        attackedCreature = creature;
+        attackedPart = part;
+    }
+
+    public Part GetAttackedPart() {
+        return attackedPart;
+    }
+
+    public Creature GetAttackedCreature() {
+        return attackedCreature;
+    }
+
+    public float GetPrecision() {
         throw new NotImplementedException();
     }
 
-    public float GetStrength()
-    {
-        throw new NotImplementedException();
+    public float GetStrength() {
+        return GetStrength(attackStep);
     }
 }

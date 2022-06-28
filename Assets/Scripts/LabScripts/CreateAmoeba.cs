@@ -27,7 +27,7 @@ public class CreateAmoeba : MonoBehaviour
 
         Debug.Log(dave.Print());
 
-        await AttackFactory.CreateAttack(dave);
+        await AttackFactory.CreateAttack(dave, dave);
 
         
     }

@@ -8,18 +8,28 @@ public class EndPart : Part {
 
 public class AttackFactory {
 
-    public static async Task<Attack> CreateAttack(Creature creature) {
+    public static async Task<Attack> CreateAttack(Creature attackingCreature, Creature attackedCreature) {
         Part firstpart = null;
 
         while (firstpart == null) {
             await ConsoleScript.PrintMessage("Type the name or id of the body part you wish to start the attack from.");
 
-            firstpart = await SelectPart(creature.GetParts());
+            firstpart = await SelectPart(attackingCreature.GetParts());
         }
 
         Attack attack = new Attack(firstpart);
 
         await ContinueAttack(attack);
+
+        Part attackedPart = null;
+
+        while (attackedPart == null) {
+            await ConsoleScript.PrintMessage("Type the name or id of the body part on the enemy you wish to attack.");
+
+            attackedPart = await SelectPart(attackedCreature.GetParts());
+        }
+
+        attack.SetAttackedCreatureAndPart(attackedCreature, attackedPart);
 
         return attack;
     }
@@ -55,7 +65,7 @@ public class AttackFactory {
         }
 
         if (returnable != null) {
-            await ConsoleScript.PrintMessage($"You wish to attack with the \"{returnable.GetName()}\"? (Y/N)", delayContinue: false);
+            await ConsoleScript.PrintMessage($"Select the \"{returnable.GetName()}\"? (Y/N)", delayContinue: false);
             string confirmattack = await GetInput.Input();
 
             if (confirmattack.ToLower() == "y") {
