@@ -23,24 +23,43 @@ public class AttackFactory {
 
         await ContinueAttack(attack);
 
-        Part attackedPart = null;
+        List<Part> attackingParts = attack.GetFinalParts();
+        List<Part> attackedParts = new List<Part>();
 
-        while (attackedPart == null) {
-            await ConsoleScript.PrintMessage("Type the name or id of the body part on the enemy you wish to attack.");
+        foreach (Part part in attackingParts) {
+            Part attackedPart = null;
 
-            attackedPart = await SelectPart(enemyParts);
+            while (attackedPart == null) {
+                await ConsoleScript.PrintMessage($"Type the name or id of the body part on the enemy you wish to attack with your {part.GetName()}.");
+
+                attackedPart = await SelectPart(enemyParts);
+            }
+
+            attackedParts.Add(attackedPart);
         }
 
-        attack.SetAttackedCreatureAndPart(attackedCreature, attackedPart);
+        attack.SetAttackedCreatureAndParts(attackedCreature, attackedParts);
+
+        //attackingparts and attackedparts have indexes that match--i.e., index 0 attackingpart is attacking index 0 attackedpart
 
         float strength = attack.GetStrength();//purely additive. Strength of all musclesystems is added together
         float precision = attack.GetPrecision();//multiplicative. All precision values are multiplied together.
 
-        enemyParts = SortTargets(enemyParts, attackedPart);
+        foreach (Part part in attackedParts) {
+            enemyParts = SortTargets(enemyParts, part);//sorts them by distance from main part
+            part.GetSize();//do something with this
 
-        List<Part> attackingParts = attack.GetFinalParts();
-        //this should return a list of every part that's actually making impact with the foe.
-        //consider using this for selecting an attack target, so you can possibly have multiple attack targets
+            //consider listing targets by their size, divided by distance from the attackedpart.
+            //consider comparing (somehow) the above number to the attacking part's size, divided by the distance from the attackedpart
+            //get a hard number out of that, and look through the enemyparts most similar in magnitude
+        }
+
+
+
+        //the larger the attackingpart is, the more likely you are to hit
+        //the larger the attackingpart is, the harder it is to hit accurately
+        //the smaller the attacked part is, the less likely it is to be hit
+        //the smaller the attacked part is, the harder it is to hit accurately
 
         //figure out if this attack actually hits the intended part
 

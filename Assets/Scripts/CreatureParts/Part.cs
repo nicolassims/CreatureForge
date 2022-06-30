@@ -32,6 +32,10 @@ public class Part {
         this.density = density;
     }
 
+    public float GetSize() {
+        return dimensions.x * dimensions.y * dimensions.z;
+    }
+
     public Vector3 GetRelativeToCenter() {
         return relativeToCenter;
     }

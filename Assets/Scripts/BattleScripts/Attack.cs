@@ -62,7 +62,7 @@ public class AttackStep {
 public class Attack {
     private readonly AttackStep attackStep;
     private Creature attackedCreature;
-    private Part attackedPart;
+    private List<Part> attackedParts;
 
     public Attack(AttackStep attackStep) {
         this.attackStep = attackStep;
@@ -74,13 +74,13 @@ public class Attack {
         return attackStep;
     }
 
-    public void SetAttackedCreatureAndPart(Creature creature, Part part) {
+    public void SetAttackedCreatureAndParts(Creature creature, List<Part> part) {
         attackedCreature = creature;
-        attackedPart = part;
+        attackedParts = part;
     }
 
-    public Part GetAttackedPart() {
-        return attackedPart;
+    public List<Part> GetAttackedPart() {
+        return attackedParts;
     }
 
     public Creature GetAttackedCreature() {
